@@ -1,9 +1,8 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/rXX1_Uiw)
 ## Project 00
 ### NeXTCS
-### Period: 
-## Name0: YOUR NAME HERE
-## Name1: OTHER NAME HERE (delete this line if you are working solo)
+### Period: Pd 9
+## Name0: Jason Zheng
 ---
 
 This project will be completed in phases. The first phase will be to work on this document. Use github-flavoured markdown. (For more markdown help [click here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or [here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) )
@@ -26,28 +25,30 @@ All projects will require the following:
 ## Phase 0: Force Selection, Analysis & Plan
 ---------- 
 
-#### Custom Force: NAME OF YOUR FORCE
+#### Custom Force: Repellent Electrostatic Force
 
 ### Forumla
-What is the formula for your force? Including descriptions/definitions for the symbols. (You may include a picture of the formula if it is not easily typed.)
-
-YOUR ANSWER HERE
+F = k*(q1*q2)/(r^2)
+Where: 
+  k = Coulomb's Constant
+  q1 & q2: magnitude of the charge of the 2 charges
+  r: distance between the center of the 2 charges
 
 ### Custom Force
 - What information that is already present in the `Orb` or `OrbNode` classes does this force use?
-  - YOUR ANSWER HERE
+  - PVector Acceleration
 
 - Does this force require any new constants, if so what are they and what values will you try initially?
-  - YOUR ANSWER HERE
+  - Requires a new constant, Coulomb's Constant(Could be set to anything, but irl is 9*10^9 N*m^2/C^2)
 
 - Does this force require any new information to be added to the `Orb` class? If so, what is it and what data type will you use?
-  - YOUR ANSWER HERE
+  - Yes; charge, independent of mass
 
 - Does this force interact with other `Orbs`, or is it applied based on the environment?
-  - YOUR ANSWER HERE
+  - This force causes orbs to interact with each other, dependent on the distance between the center of the two orbs and the magnitude of their charges
 
 - In order to calculate this force, do you need to perform extra intermediary calculations? If so, what?
-  - YOUR ANSWER HERE
+  - No intermediary calculations required.
 
 --- 
 
