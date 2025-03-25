@@ -6,14 +6,26 @@ class Orb {
   float bsize;
   float mass;
   color c;
-
+  
   //default constructor
-  Orb(float x, float y, int s) {
+  Orb() {
+    bsize = random(10, 100);
+    float x = random(bsize/2, width-bsize/2);
+    float y = random(bsize/2, height-bsize/2);
+    center = new PVector(x, y);
+    mass = random(10, 100);
+    velocity = new PVector();
+    acceleration = new PVector();
+    setColor();
+  }
+  
+  Orb(float x, float y, float s) {
     bsize = s;
     mass = s;
     center = new PVector(x, y);
     velocity = new PVector();
     acceleration = new PVector();
+    setColor();
   }
 
   //movement behavior
@@ -29,7 +41,9 @@ class Orb {
   }//move
 
   void applyForce(PVector force) {
-    acceleration.add(force);
+    PVector scaleForce = force.copy();
+    scaleForce.div(mass);
+    acceleration.add(scaleForce);
   }
 
   PVector getDragForce(float coeff) {
@@ -49,7 +63,23 @@ class Orb {
     return force;
   }
   
-  PVector getMysteriousForce(Orb other) {
+  PVector getSpring(Orb other, int springLength, float springK) {
+    if(other != null) {
+      PVector direction = PVector.sub(other.center, this.center);
+      direction.normalize();
+  
+      float displacement = this.center.dist(other.center) - springLength;
+      float mag = springK * displacement;
+      direction.mult(mag);
+  
+      return direction;
+    } else {
+      PVector direction = new PVector(0,0);
+      return direction;
+    }
+  }//getSpring
+  
+  PVector getElectroStaticForce(Orb other) {
     PVector mysteriousForce;
     if (mass != other.mass) {
       float magConstant = (velocity.mag()+other.velocity.mag())/(mass-other.mass);
@@ -93,8 +123,8 @@ class Orb {
       <= (this.bsize/2 + other.bsize/2) );
   }//collisionCheck
 
-  void setColor(color newC) {
-    c = newC;
+  void setColor() {
+    c = color(random(220), random(220), random(220));
   }//setColor
 
   //visual behavior
@@ -112,7 +142,7 @@ class FixedOrb extends Orb {
   float mass;
   color c;
   
-  FixedOrb(int x, int y, int s) {
+  FixedOrb(float x, float y, float s) {
     super(x, y, s);
   }
 
@@ -120,3 +150,28 @@ class FixedOrb extends Orb {
     //nothing lol
   }
 }
+
+class OrbNode extends Orb {
+  //attributes aka instance variables
+  OrbNode next;
+  OrbNode previous;
+  
+  void display(int springLength) {
+    if(next != null) {
+      if (springLength < dist(center.x, center.y, next.center.x, next.center.y)){
+        stroke(255,0,0);
+      } else {
+        stroke(0,255,0);
+    }
+      line(center.x, center.y, next.center.x, next.center.y);
+    }
+    if(previous != null) {
+      if (springLength < dist(center.x, center.y, previous.center.x, previous.center.y)){
+        stroke(255,0,0);
+      } else {
+        stroke(0,255,0);
+      }
+      line(center.x + 2, center.y + 2, previous.center.x + 2, previous.center.y + 2);
+    }
+  }
+}//OrbNode
